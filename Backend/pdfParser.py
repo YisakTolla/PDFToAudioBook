@@ -1,0 +1,17 @@
+import textract as tt
+
+def obtain_file_path():
+    #TODO: grab file path of the selected PDF to be passed into parse function
+    return
+
+def parse_pdf(filepath):
+    if ".pdf" in filepath:
+        text = tt.process(filepath)
+        return text
+    else:
+        text = tt.process(filepath, extension='pdf')
+        return text
+
+#Testing
+text = tt.process(filename='Backend/PDFs/Sample.pdf')
+print(text)
