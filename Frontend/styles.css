@@ -1,0 +1,71 @@
+/* CSS based on zen garden css website https://www.csszengarden.com */
+html {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font: 75% georgia, sans-serif;
+  line-height: 1.88889;
+  color: #555753;
+  background: #fff url('https://csszengarden.com/001/blossoms.jpg') no-repeat bottom right;
+  margin: 0;
+  padding: 0;
+}
+
+.page-wrapper {
+  background: url('https://csszengarden.com/001/zen-bg.jpg') no-repeat top left;
+  padding: 40px 175px 0 110px;
+  margin: 0;
+  position: relative;
+  min-height: 100vh;
+}
+
+h1 {
+  font: italic normal 2.4em georgia, sans-serif;
+  letter-spacing: 2px;
+  margin-top: 40px;
+  margin-bottom: 30px;
+  color: #7D775C;
+  text-align: center;
+}
+
+p {
+  margin: 20px 0;
+  text-align: center;
+  font: 1.1em/1.8 georgia, serif;
+}
+
+.credits {
+  font-style: italic;
+  font-size: 0.9em;
+  color: #7D775C;
+  margin-bottom: 30px;
+}
+
+button {
+  display: block;
+  width: 200px;
+  margin: 15px auto;
+  padding: 10px;
+  font: bold 1em georgia, sans-serif;
+  background: #B7A5DF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background: #9685BA;
+  text-decoration: none;
+}
+
+footer {
+  text-align: center;
+  margin-top: 40px;
+  padding: 20px;
+  font-style: italic;
+  font-size: 0.9em;
+}
