@@ -17,9 +17,19 @@
       <div id="uploadStatus"></div>
     </div>
 
-    <p>Click below to select the voice of your translator</p>
-    <button type="button" onclick="alert('Select Voice')">Select Voice</button>
+    <!-- Voice Selection Section -->
+    <div class="Voice-Selection">
+      <p>Click below to select the voice of your translator</p>
+      <button type="button" id="uploadBtn">Select Voice</button>
+      <label for="voiceSelect">Choose a voice:</label>
+      <select id="voiceSelect" name="voiceSelect">
+        <option value="voice1">Google US English</option>
+        <option value="voice2">Google UK English Female</option>
+        <option value="voice3">Google Deutsch</option>
+      </select>
+    </div>
     
+    <!-- Voice speed Section-->
     <p>Select below to adjust how fast your translator is speaking</p>
     <div class="speed-control">
       <input type="range" id="speedSlider" min="0.5" max="2" step="0.1" value="1">
