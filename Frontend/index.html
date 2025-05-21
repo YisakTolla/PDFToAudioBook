@@ -10,8 +10,14 @@
     <p class="credits">Made by Madu Okafor, Mohammad Shaik, Yisak Tolla, Sai Gudapati</p>
     
     <p>Click below to upload your pdf files</p>
-    <button type="button" onclick="alert('Upload pdf')">Upload Pdf</button>
-    
+    <form action="/action_page.php">
+      <label for="myFile">Select files:
+    </label>
+      <input type="file" id="myfile"
+    name="myfile" multiple><br><br>
+      <input type="submit">
+    </form>
+
     <p>Click below to select the voice of your translator</p>
     <button type="button" onclick="alert('Select Voice')">Select Voice</button>
     
