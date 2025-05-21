@@ -80,3 +80,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const initialPercentage = ((initialSpeed - 0.5) / (2 - 0.5)) * 100;
   speedSlider.style.setProperty('--value', `${initialPercentage}%`);
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+   const voiceToggleBtn = document.getElementById('voiceToggleBtn');
+   const voiceSelectionOptions = document.getElementById('voiceSelectionOptions');
+   
+   voiceToggleBtn.addEventListener('click', function() {
+     if (voiceSelectionOptions.style.display === 'block' || voiceSelectionOptions.style.display === '') {
+       voiceSelectionOptions.style.display = 'none';
+     } else {
+       voiceSelectionOptions.style.display = 'block';
+     }
+   });
+ });

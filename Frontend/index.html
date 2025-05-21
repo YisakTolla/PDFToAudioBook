@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>AudioBook</title>
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
   <div class="page-wrapper">
     <h1><strong>AudioBook</strong></h1>
     <p class="credits">Made by Madu Okafor, Mohammad Shaik, Yisak Tolla, Sai Gudapati</p>
-    
     <!-- PDF Upload Section -->
     <div class="upload-section">
       <p>Click below to upload your pdf files</p>
@@ -16,30 +17,27 @@
       <button type="button" id="uploadBtn">Upload Pdf</button>
       <div id="uploadStatus"></div>
     </div>
-
     <!-- Voice Selection Section -->
     <div class="Voice-Selection">
       <p>Click below to select the voice of your translator</p>
-      <button type="button" id="uploadBtn">Select Voice</button>
-      <label for="voiceSelect">Choose a voice:</label>
-      <select id="voiceSelect" name="voiceSelect">
-        <option value="voice1">Google US English</option>
-        <option value="voice2">Google UK English Female</option>
-        <option value="voice3">Google Deutsch</option>
-      </select>
+      <button type="button" id="voiceToggleBtn">Select Voice</button>
+      <div id="voiceSelectionOptions" style="display: none;">
+        <label for="voiceSelect">Choose a voice:</label>
+        <select id="voiceSelect" name="voiceSelect">
+          <option value="voice1">Google US English</option>
+          <option value="voice2">Google UK English Female</option>
+          <option value="voice3">Google Deutsch</option>
+        </select>
+      </div>
     </div>
-    
     <!-- Voice speed Section-->
     <p>Select below to adjust how fast your translator is speaking</p>
     <div class="speed-control">
       <input type="range" id="speedSlider" min="0.5" max="2" step="0.1" value="1">
       <span id="speedValue">1.0x</span>
     </div>
-    
     <footer>
       AudioBook - PDF to Voice Converter
     </footer>
   </div>
   <script src="script.js"></script>
-</body>
-</html>
