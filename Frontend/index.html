@@ -9,20 +9,22 @@
     <h1><strong>AudioBook</strong></h1>
     <p class="credits">Made by Madu Okafor, Mohammad Shaik, Yisak Tolla, Sai Gudapati</p>
     
-    <p>Click below to upload your pdf files</p>
-    <form action="/action_page.php">
-      <label for="myFile">Select files:
-    </label>
-      <input type="file" id="myfile"
-    name="myfile" multiple><br><br>
-      <input type="submit">
-    </form>
+    <!-- PDF Upload Section -->
+    <div class="upload-section">
+      <p>Click below to upload your pdf files</p>
+      <input type="file" id="pdfInput" accept=".pdf" style="display: none;">
+      <button type="button" id="uploadBtn">Upload Pdf</button>
+      <div id="uploadStatus"></div>
+    </div>
 
     <p>Click below to select the voice of your translator</p>
     <button type="button" onclick="alert('Select Voice')">Select Voice</button>
     
-    <p>Click below to adjust how fast your translator is speaking</p>
-    <button type="button" onclick="alert('Adjust Speed')">Adjust Speed</button>
+    <p>Select below to adjust how fast your translator is speaking</p>
+    <div class="speed-control">
+      <input type="range" id="speedSlider" min="0.5" max="2" step="0.1" value="1">
+      <span id="speedValue">1.0x</span>
+    </div>
     
     <footer>
       AudioBook - PDF to Voice Converter
