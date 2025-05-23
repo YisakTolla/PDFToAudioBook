@@ -54,7 +54,6 @@ function uploadPdf(file) {
   const formData = new FormData();
   formData.append('file', file);
 
-  uploadStatus.innerHTML = '<span style="color: blue;">Uploading and processing PDF...</span>';
 
   fetch('http://127.0.0.1:5000/api/upload', {
     method: 'POST',
@@ -72,7 +71,6 @@ function uploadPdf(file) {
     })
     .catch(error => {
       console.error('Error uploading PDF:', error);
-      uploadStatus.innerHTML = '<span style="color: red;">Error uploading PDF</span>';
     });
 }
 
