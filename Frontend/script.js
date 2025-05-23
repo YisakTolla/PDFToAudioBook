@@ -11,21 +11,42 @@ fetch('http://127.0.0.1:5000/api/greet')
     console.error('Error fetching API:', error);
   });
 
-// DOM elements for upload
+// Upload and PDF handling
 const pdfInput = document.getElementById('pdfInput');
-const uploadBtn = document.getElementById('uploadBtn');
+const uploadArea = document.getElementById('uploadArea');
 const uploadStatus = document.getElementById('uploadStatus');
-
-uploadBtn.addEventListener('click', () => {
-  pdfInput.click();
-});
+const uploadContent = document.getElementById('uploadContent');
+const fileUploaded = document.getElementById('fileUploaded');
+const fileName = document.getElementById('fileName');
+const fileSize = document.getElementById('fileSize');
 
 pdfInput.addEventListener('change', (event) => {
   const file = event.target.files[0];
   if (file && file.type === 'application/pdf') {
+    uploadContent.classList.add('hidden');
+    fileUploaded.classList.remove('hidden');
+    fileName.textContent = file.name;
+    fileSize.textContent = `${(file.size / 1024 / 1024).toFixed(1)} MB`;
     uploadPdf(file);
   } else {
     uploadStatus.innerHTML = '<span style="color: red;">Please select a valid PDF file</span>';
+  }
+});
+
+uploadArea.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  uploadArea.classList.add('drag-over');
+});
+
+uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('drag-over'));
+
+uploadArea.addEventListener('drop', (e) => {
+  e.preventDefault();
+  uploadArea.classList.remove('drag-over');
+  const files = e.dataTransfer.files;
+  if (files.length > 0 && files[0].type === 'application/pdf') {
+    pdfInput.files = files;
+    pdfInput.dispatchEvent(new Event('change', { bubbles: true }));
   }
 });
 
@@ -45,8 +66,8 @@ function uploadPdf(file) {
         uploadStatus.innerHTML = `<span style="color: red;">Error: ${data.error}</span>`;
       } else {
         console.log('Extracted text:', data.text);
-        uploadStatus.innerHTML = `<div style="text-align: center;"><span style="color: green;">${file.name} processed successfully!</span></div><p id="extractedText" style="display: none;">${data.text}</p>`;
-
+        uploadStatus.innerHTML = `<div style="text-align: center;"><span style="color: green;">${file.name} processed successfully!</span></div>`;
+        document.getElementById('extractedText').textContent = data.text;
       }
     })
     .catch(error => {
@@ -55,70 +76,42 @@ function uploadPdf(file) {
     });
 }
 
-// Voice selection toggle
-document.addEventListener('DOMContentLoaded', function () {
-  const voiceToggleBtn = document.getElementById('voiceToggleBtn');
-  const voiceSelectionOptions = document.getElementById('voiceSelectionOptions');
-
-  voiceToggleBtn.addEventListener('click', function () {
-    voiceSelectionOptions.style.display = voiceSelectionOptions.style.display === 'block' ? 'none' : 'block';
-  });
-});
-
-// Track selected voice
-let selectedVoice = 'voice1';
-const voiceSelect = document.getElementById('voiceSelect');
-voiceSelect.addEventListener('change', function (event) {
-  selectedVoice = event.target.value;
-  console.log('Selected voice:', selectedVoice);
-});
-
-// Speed control
+// Voice selection & speech synthesis
 let speechSpeed = 1.0;
 const speedSlider = document.getElementById('speedSlider');
 const speedValue = document.getElementById('speedValue');
+const playBtn = document.getElementById('PlayAudio');
 
 speedSlider.addEventListener('input', (event) => {
   const speed = parseFloat(event.target.value);
   speechSpeed = speed;
   speedValue.textContent = `${speed}x`;
-
-  const percentage = ((speed - 0.5) / (2 - 0.5)) * 100;
-  event.target.style.setProperty('--value', `${percentage}%`);
-
-  console.log(`Speech speed set to: ${speechSpeed}x`);
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  const initialSpeed = parseFloat(speedSlider.value);
-  const initialPercentage = ((initialSpeed - 0.5) / (2 - 0.5)) * 100;
-  speedSlider.style.setProperty('--value', `${initialPercentage}%`);
+  speedValue.textContent = `${speedSlider.value}x`;
 });
 
-// Play Audio button logic
-const playBtn = document.getElementById('PlayAudio');
 playBtn.addEventListener('click', () => {
   const extractedTextElement = document.getElementById('extractedText');
+  const selectedVoice = document.querySelector('input[name="voice"]:checked')?.value;
+
   if (!extractedTextElement || !extractedTextElement.textContent.trim()) {
-    alert("No extracted text found. Upload a PDF first. Or Yisak will touch you...");
+    alert("No extracted text found. Upload a PDF first.");
     return;
   }
 
   const textToRead = extractedTextElement.textContent;
   const utterance = new SpeechSynthesisUtterance(textToRead);
 
-  // Set voice
   const voices = speechSynthesis.getVoices();
-  const selectedVoiceLabel = voiceSelect.selectedOptions[0].text;
-  const matchingVoice = voices.find(v => v.name.includes(selectedVoiceLabel));
+  const matchingVoice = voices.find(v => v.name.includes(selectedVoice));
   if (matchingVoice) {
     utterance.voice = matchingVoice;
   }
 
-  // Set speed
   utterance.rate = speechSpeed;
 
-  speechSynthesis.cancel(); 
+  speechSynthesis.cancel();
   speechSynthesis.speak(utterance);
 });
-

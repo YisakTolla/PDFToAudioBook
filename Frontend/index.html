@@ -1,48 +1,90 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <title>AudioBook</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AudioBook — PDF to Voice</title>
+  <link href="https://fonts.googleapis.com/css2?family=Satoshi:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
-  <div class="page-wrapper">
-    <h1><strong>AudioBook</strong></h1>
-    <p class="credits">Made by Madu Okafor, Mohammad Shaik, Yisak Tolla, Sai Gudapati</p>
-    <!-- PDF Upload Section -->
-    <div class="upload-section">
-      <p>Click below to upload your pdf files</p>
-      <input type="file" id="pdfInput" accept=".pdf" style="display: none;">
-      <button type="button" id="uploadBtn">Upload Pdf</button>
-      <div id="uploadStatus"></div>
-    </div>
-    <!-- Voice Selection Section -->
-    <div class="Voice-Selection">
-      <p>Click below to select the voice of your translator</p>
-      <button type="button" id="voiceToggleBtn">Select Voice</button>
-      <div id="voiceSelectionOptions" style="display: none;">
-        <label for="voiceSelect">Choose a voice:</label>
-        <select id="voiceSelect" name="voiceSelect">
-          <option value="voice1">Google US English</option>
-          <option value="voice2">Google UK English Female</option>
-          <option value="voice3">Google Deutsch</option>
-        </select>
-      </div>
-    </div>
-    <!-- Voice speed Section-->
-    <p>Select below to adjust how fast your translator is speaking</p>
-    <div class="speed-control">
-      <input type="range" id="speedSlider" min="0.5" max="2" step="0.1" value="1">
-      <span id="speedValue">1.0x</span>
-    </div>
+  <div class="container">
+    <header>
+      <h1><span class="pdf-highlight">PDF</span>ToAudioBook</h1>
+      <p class="tagline">Transform any PDF into an Audiobook.</p>
+    </header>
 
-    <div class = "Play Audio">
-    <button type = "button" id = "PlayAudio"> Play Audio</button>
+    <main class="primary-section">
+      <div class="section-header">
+        <h2 class="section-title">Create Your Audiobook</h2>
+        <p class="section-subtitle">Upload your PDF and select your preferences</p>
+      </div>
+
+      <div class="upload-area" id="uploadArea" onclick="document.getElementById('pdfInput').click()">
+        <div class="upload-content" id="uploadContent">
+          <div class="upload-icon">⬆</div>
+          <div class="upload-text">Drop your PDF here</div>
+          <div class="upload-subtext">or click to browse • Max 50MB</div>
+        </div>
+        <div class="file-uploaded hidden" id="fileUploaded">
+          <div class="file-icon">📄</div>
+          <div class="file-details">
+            <div class="file-name" id="fileName"></div>
+            <div class="file-meta">
+              <span class="file-size" id="fileSize"></span>
+              <span class="file-status">✓ Ready to process</span>
+            </div>
+          </div>
+          <button class="change-file" onclick="event.stopPropagation(); document.getElementById('pdfInput').click()">Change file</button>
+        </div>
+      </div>
+      <input type="file" id="pdfInput" accept=".pdf" hidden />
+
+      <div class="controls-grid">
+        <div class="control-group">
+          <div class="control-label">Voice Selection</div>
+          <label class="voice-option">
+            <input type="radio" name="voice" value="US English" checked />
+            <span class="radio-custom"></span>
+            <span>US English</span>
+          </label>
+          <label class="voice-option">
+            <input type="radio" name="voice" value="UK English" />
+            <span class="radio-custom"></span>
+            <span>UK English</span>
+          </label>
+          <label class="voice-option">
+            <input type="radio" name="voice" value="Yisak" />
+            <span class="radio-custom"></span>
+            <span>Yisak</span>
+          </label>
+        </div>
+
+        <div class="control-group">
+          <div class="control-label">Speech Speed</div>
+          <div class="speed-control">
+            <input type="range" id="speedSlider" min="0.5" max="2" step="0.1" value="1" />
+            <span id="speedValue">1.0x</span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div class="generate-section">
+      <button id="PlayAudio" class="generate-button">
+        <span class="button-text">Generate Audiobook</span>
+        <span class="button-icon">→</span>
+      </button>
     </div>
 
     <footer>
-      AudioBook - PDF to Voice Converter
+      <p>Built by Madu, Mohamed, Yisak, and Sai • AudioBook 2025</p>
     </footer>
   </div>
+
+  <p id="uploadStatus" style="text-align: center; margin-top: 10px;"></p>
+  <p id="extractedText" style="display: none;"></p>
+
   <script src="script.js"></script>
+</body>
+</html>
