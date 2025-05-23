@@ -2,7 +2,8 @@ import fitz  # PyMuPDF
 import io
 import os
 import tempfile
-from typing import Union
+from typing import Union, Optional
+
 
 def obtain_file_path():
     """
@@ -24,7 +25,7 @@ def obtain_file_path():
         print("No file selected")
         return None
 
-def parse_pdf(source: Union[str, bytes, io.BytesIO]) -> str | None:
+def parse_pdf(source: Union[str, bytes, io.BytesIO]) -> Optional[str]:
     """
     Extract text from a PDF.
 
