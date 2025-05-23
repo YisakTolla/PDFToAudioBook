@@ -44,8 +44,9 @@ function uploadPdf(file) {
       if (data.error) {
         uploadStatus.innerHTML = `<span style="color: red;">Error: ${data.error}</span>`;
       } else {
-        uploadStatus.innerHTML = `<div style="text-align: center;"><span style="color: green;">${file.name} processed successfully!</span></div>`;
         console.log('Extracted text:', data.text);
+        uploadStatus.innerHTML = `<div style="text-align: center;"><span style="color: green;">${file.name} processed successfully!</span></div><p id="extractedText" style="display: none;">${data.text}</p>`;
+
       }
     })
     .catch(error => {
@@ -97,8 +98,27 @@ document.addEventListener('DOMContentLoaded', () => {
 // Play Audio button logic
 const playBtn = document.getElementById('PlayAudio');
 playBtn.addEventListener('click', () => {
-  console.log(`Playing audio with voice: ${selectedVoice}, speed: ${speechSpeed}x`);
+  const extractedTextElement = document.getElementById('extractedText');
+  if (!extractedTextElement || !extractedTextElement.textContent.trim()) {
+    alert("No extracted text found. Upload a PDF first. Or Yisak will touch you...");
+    return;
+  }
 
-  // Future: use this data to play audio
-  // e.g., send to backend or use speechSynthesis API
+  const textToRead = extractedTextElement.textContent;
+  const utterance = new SpeechSynthesisUtterance(textToRead);
+
+  // Set voice
+  const voices = speechSynthesis.getVoices();
+  const selectedVoiceLabel = voiceSelect.selectedOptions[0].text;
+  const matchingVoice = voices.find(v => v.name.includes(selectedVoiceLabel));
+  if (matchingVoice) {
+    utterance.voice = matchingVoice;
+  }
+
+  // Set speed
+  utterance.rate = speechSpeed;
+
+  speechSynthesis.cancel(); 
+  speechSynthesis.speak(utterance);
 });
+
