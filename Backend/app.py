@@ -44,9 +44,7 @@ def upload():
     except Exception as e:
         return jsonify({"error": f"An error occurred: {str(e)}"}), 500
 
-@app.route("/api/upload", methods=["POST"])
-def playAudio():
-    return 0
-
 if __name__ == '__main__':
     app.run(debug=True)
+else:
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 10000)))

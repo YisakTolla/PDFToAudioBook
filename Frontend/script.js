@@ -1,5 +1,5 @@
 // Fetch greeting from Flask backend
-fetch('http://127.0.0.1:5000/api/greet')
+fetch('https://pdftoaudiobook-xmuk.onrender.com/api/greet')
   .then(response => response.json())
   .then(data => {
     const messageElement = document.getElementById('message');
@@ -55,7 +55,7 @@ function uploadPdf(file) {
   formData.append('file', file);
 
 
-  fetch('http://127.0.0.1:5000/api/upload', {
+  fetch('https://pdftoaudiobook-xmuk.onrender.com/api/upload', {
     method: 'POST',
     body: formData
   })
